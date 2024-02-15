@@ -1,0 +1,80 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                              Deep Pound MT5.mq5  |
+//|                                Copyright © 2022, Forex Robot Easy Team |
+//|                                           https://forexroboteasy.com |
+//+------------------------------------------------------------------+
+
+// Global variables
+int tradeAllowed = 1; // Flag to determine if trading is allowed
+datetime startDate = D'2022.01.15 00:00:00'; // Start date for trading
+datetime endDate = D'2022.12.15 00:00:00'; // End date for trading
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Disable trading if current date is within the restricted period
+    if (TimeCurrent() >= startDate && TimeCurrent() <= endDate)
+    {
+        tradeAllowed = 0;
+    }
+    
+    return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    // Clean up any resources here
+}
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+    // Check if trading is allowed
+    if (tradeAllowed == 0)
+    {
+        return;
+    }
+    
+    // Place your trading logic here
+    // Example: Buy when price crosses above a moving average
+    
+    // Display live signals
+    Comment('Buy signal');
+    
+    // Place order
+    // Example: OrderSend(Symbol(), OP_BUY, 0.1, Ask, 0, 0, 0, 'Buy Order', 0, 0, clrGreen);
+    
+    // Check for trade execution and update performance statistics
+    // Example: if (IsTradeAllowed() && OrderCloseTime() > 0) { UpdatePerformance(); }
+}
+
+//+------------------------------------------------------------------+
+//| Custom functions                                                  |
+//+------------------------------------------------------------------+
+
+// Check if trading is allowed
+bool IsTradeAllowed()
+{
+    if (TimeCurrent() >= startDate && TimeCurrent() <= endDate)
+    {
+        return false;
+    }
+    
+    return true;
+}
+
+// Update performance statistics
+void UpdatePerformance()
+{
+    // Update performance statistics here
+}
+
+//+------------------------------------------------------------------+
